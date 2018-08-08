@@ -29,6 +29,7 @@ namespace CityGuide.WebAPI
         {
             services.AddCors();
             services.AddDbContext<CityGuideDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("CityGuideDbContext")));
+            services.AddScoped<IAppRepository, AppRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
