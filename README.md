@@ -1,2 +1,2 @@
 # .NetCoreWebApi
-Sample .Net Core Web Api Solution
+Sample .Net Core Web API project. / Udemy Course
