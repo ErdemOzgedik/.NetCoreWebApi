@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using CityGuide.WebAPI.Data;
+using CityGuide.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CityGuide.WebAPI.Controllers
 {
@@ -10,24 +15,34 @@ namespace CityGuide.WebAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private CityGuideDbContext _dbContext;
+
+        public ValuesController(CityGuideDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult> GetValues()
         {
-            return new string[] { "value1", "value2" };
+            var valuesList = await _dbContext.Values.ToListAsync();
+            return Ok(valuesList);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            return "value";
+            var value =  await _dbContext.Set<Value>().FirstOrDefaultAsync(v=>v.Id == id);
+            return Ok(value);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Value value)
         {
+            _dbContext.Values.AddAsync(value);
         }
 
         // PUT api/values/5
