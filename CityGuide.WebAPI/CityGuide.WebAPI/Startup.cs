@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CityGuide.WebAPI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace CityGuide.WebAPI
             services.AddCors();
             services.AddDbContext<CityGuideDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("CityGuideDbContext")));
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
