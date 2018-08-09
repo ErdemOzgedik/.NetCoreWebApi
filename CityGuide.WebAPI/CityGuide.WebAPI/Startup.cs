@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CityGuide.WebAPI.Data;
+using CityGuide.WebAPI.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +33,10 @@ namespace CityGuide.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value); // get key value from appsettings.json
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // Cloudinary configuration
+
+
             services.AddCors();
             services.AddDbContext<CityGuideDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("CityGuideDbContext")));
             services.AddScoped<IAppRepository, AppRepository>();
