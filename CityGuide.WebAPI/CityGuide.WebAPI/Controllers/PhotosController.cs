@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 
 namespace CityGuide.WebAPI.Controllers
 {
-    [Route("api/cities/{id}/photos")]
+    [Route("api/cities/{cityId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -37,9 +37,9 @@ namespace CityGuide.WebAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddPhotoForCity(int id, [FromBody] PhotoForCreationDto creationDto)
+        public ActionResult AddPhotoForCity(int cityId, [FromBody] PhotoForCreationDto creationDto)
         {
-            var city = _appRepository.GetCityById(id);
+            var city = _appRepository.GetCityById(cityId);
             if (city == null)
             {
                 return BadRequest("Could not find the city.");

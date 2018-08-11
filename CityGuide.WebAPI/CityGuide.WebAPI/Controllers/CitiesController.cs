@@ -40,7 +40,7 @@ namespace CityGuide.WebAPI.Controllers
             var cities = _appRepository.GetCities();
             var dtoCities = _mapper.Map<List<CityForListDto>>(cities);
 
-            return Ok(cities);
+            return Ok(dtoCities);
         }
 
         [HttpPost]
